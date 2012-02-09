@@ -57,7 +57,59 @@ class FacebookController extends Zend_Controller_Action
         return false;
     }
 
+    /**
+     * Request OAuth access token.
+     *
+     * @param string $code OAuth code we got from service.
+     * @return string Token, or null if we didn't obtain a proper token
+     */
+    protected function _requestToken($code) {
+        $client = new Zend_Http_Client();
+        $client->setUri('https://graph.facebook.com/oauth/access_token');
+
+        $queryParams = array(
+            'client_id'     => self::CLIENT_ID,
+            'client_secret' => self::CLIENT_SECRET,
+            'redirect_uri'  => 'http://oauth2.local'
+                                . $this->view->url(array('controller' => 'facebook', 'action' => 'callback')),
+            'code'          => $code
+        );
+
+        $client->setParameterGet($queryParams);
+
+        echo "<h3>We then made asynchronous request to this Facebook URL:</h3>";
+        Zend_Debug::dump($client->getUri(true) . '?');
+        Zend_Debug::dump($queryParams);
+
+        try {
+            $response = $client->request('POST');
+        } catch (Zend_Http_Client_Exception $e) {  // timeout or host not accessible
+            return;
+        }
+
+        // error in response
+        if ($response->isError()) {
+            return;
+        }
+
+        echo "<h3>This is what Facebook returned to this request:</h3>";
+        Zend_Debug::dump($response->getBody());
+
+        $result = array();
+        parse_str($response->getBody(), $result);
+        if (isset($result['access_token'])) {
+            $token = $result['access_token'];
+            echo "<h3>And we parsed this access_token, which we then stored to session:</h3>";
+            Zend_Debug::dump($token);
+            echo "<h3>Voilà, now return to the main page!</h3>";
+            return $token;
+        }
+        return;
+    }
+
 
 
 }
+
+
 
