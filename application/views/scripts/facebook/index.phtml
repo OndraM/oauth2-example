@@ -5,13 +5,20 @@ if (!$this->isAuthorized) { // user is NOT authorized
         'client_id'         => $this->CLIENT_ID,
         'response_type'     => 'code',
         'redirect_uri'      => 'http://oauth2.local'
-                                . $this->url(array('controller' => 'oauth', 'action'=> 'callback')),
+                                . $this->url(array('controller' => 'facebook', 'action'=> 'callback')),
         'scope'             => 'user_about_me,user_photos,offline_access'
+        // remember - in real world use state param to prevent CSRF!
     );
 ?>
 <a href="https://www.facebook.com/dialog/oauth?<?=http_build_query($urlData);?> " title="Click to connect to Facebook">
     <img src="<?=$this->baseUrl();?>/images/connect-fb.png" alt="Connect to Facebook" />
 </a>
+
+<h3>This will move you to page:</h3>
+<?php
+Zend_Debug::dump('https://www.facebook.com/dialog/oauth?');
+Zend_Debug::dump($urlData);
+?>
 
 <?php
 } else { // user IS authorized
