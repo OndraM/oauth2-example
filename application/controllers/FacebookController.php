@@ -9,6 +9,11 @@ class FacebookController extends Zend_Controller_Action
     {
         $this->view->CLIENT_ID = self::CLIENT_ID;
         $this->view->CLIENT_SECRET = self::CLIENT_SECRET;
+
+        $this->session = new Zend_Session_Namespace('OAUTH2');
+        if (!isset($this->session->services)) {
+            $this->session->services = array();
+        }
     }
 
     public function indexAction()
@@ -42,8 +47,13 @@ class FacebookController extends Zend_Controller_Action
      * Check whether user is already authorized
      *
      * @return boolean Authorization status
+     *
      */
-    protected function _isAuthorized() {
+    protected function _isAuthorized()
+    {
+        if (isset($this->session->services['facebook'])) {
+            return true;
+        }
         return false;
     }
 
