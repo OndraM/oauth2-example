@@ -4,7 +4,13 @@
 <?php
 if ($this->status) {
 ?>
-Looks fine, you have authorized this app to steal your personal data, woot! How this happened?
+<p>
+Looks fine, you have authorized this app to steal your personal data, woot!
+</p>
+See below, how this happened!
+</p>
+
+<img src="http://lokwi.com/upl/783.jpg" />
 
 <h3>These are GET parametres we've got from Facebook after you authorized the app:</h3>
 <?php
@@ -14,7 +20,7 @@ Zend_Debug::dump(Zend_Controller_Front::getInstance()->getRequest()->getQuery())
 ?>
 <p>
 Oh no, error occurred during authorization - maybe you denied access?<br />
-
+<img src="http://cl.jroo.me/z3/P/u/u/d/a.aaa-Cute-sad-cat-look.jpg" />
 </p>
 <h3>Query params:</h3>
 <?php

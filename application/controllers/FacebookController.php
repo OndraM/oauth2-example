@@ -20,6 +20,11 @@ class FacebookController extends Zend_Controller_Action
     {
         $isAuthorized = $this->_isAuthorized();
         $this->view->isAuthorized = $isAuthorized;
+
+        if ($isAuthorized) {
+            $this->view->me = $this->_fetchData('/me');
+            $this->view->photos = $this->_fetchData('/me/photos');
+        }
     }
 
     public function callbackAction()
@@ -108,6 +113,30 @@ class FacebookController extends Zend_Controller_Action
     }
 
 
+    protected function _fetchData($endpoint) {
+        $client = new Zend_Http_Client();
+        $client->setUri('https://graph.facebook.com' . $endpoint);
+
+        $queryParams = array(
+                        'access_token' => $this->session->services['facebook']
+                       );
+
+        $client->setParameterGet($queryParams);
+
+        try {
+            $response = $client->request();
+        } catch (Zend_Http_Client_Exception $e) {  // timeout or host not accessible
+            return;
+        }
+        // error in response
+        if ($response->isError()) return;
+
+        // parse JSON data
+        $data = Zend_Json::decode($response->getBody());
+
+        return $data;
+
+    }
 
 }
 
