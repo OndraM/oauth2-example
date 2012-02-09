@@ -17,6 +17,27 @@ class FacebookController extends Zend_Controller_Action
         $this->view->isAuthorized = $isAuthorized;
     }
 
+    public function callbackAction()
+    {
+        $code = $this->_getParam('code');   // see 4.1.2. of OAuth 2.0 draft 23
+        $error = $this->_getParam('error'); // see 4.1.2.1. of OAuth 2.0 draft 23
+
+        $this->view->status = false;
+        if (!empty($error)) { // eg. 'access_denied' when user fails to confirm app
+            return;
+        }
+
+        $token = $this->_requestToken($code);
+
+        if ($token) {
+            $this->session->services['facebook'] = $token;
+            $this->view->status = true;
+        } else { // error obtaining token
+            $this->view->status = false;
+        }
+
+    }
+
     /**
      * Check whether user is already authorized
      *

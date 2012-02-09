@@ -1,0 +1,23 @@
+<p>
+    <a href="<?=$this->baseUrl();?>/">Return to mainpage</a>
+</p>
+<?php
+if ($this->status) {
+?>
+Looks fine, you have authorized this app to steal your personal data, woot! How this happened?
+
+<h3>These are GET parametres we've got from Facebook after you authorized the app:</h3>
+<?php
+Zend_Debug::dump(Zend_Controller_Front::getInstance()->getRequest()->getQuery());
+
+} else {
+?>
+<p>
+Oh no, error occurred during authorization - maybe you denied access?<br />
+
+</p>
+<h3>Query params:</h3>
+<?php
+Zend_Debug::dump(Zend_Controller_Front::getInstance()->getRequest()->getQuery());
+}
+?>
