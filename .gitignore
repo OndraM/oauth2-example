@@ -1,5 +1,6 @@
 application/cache/*
 .zfproject.xml
+tests/*
 
 library/Zend
 library/ZFDebug

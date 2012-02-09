@@ -1,0 +1,23 @@
+<?php
+if (!$this->isAuthorized) { // user is NOT authorized
+
+    $urlData = array(
+        'client_id'         => $this->CLIENT_ID,
+        'response_type'     => 'code',
+        'redirect_uri'      => 'http://oauth2.local'
+                                . $this->url(array('controller' => 'oauth', 'action'=> 'callback')),
+        'scope'             => 'user_about_me,user_photos,offline_access'
+    );
+?>
+<a href="https://www.facebook.com/dialog/oauth?<?=http_build_query($urlData);?> " title="Click to connect to Facebook">
+    <img src="<?=$this->baseUrl();?>/images/connect-fb.png" alt="Connect to Facebook" />
+</a>
+
+<?php
+} else { // user IS authorized
+?>
+I'm authorized, let's get some data!
+
+<?php
+}
+?>
