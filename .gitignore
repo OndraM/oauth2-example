@@ -1,0 +1,6 @@
+application/cache/*
+.zfproject.xml
+
+library/Zend
+library/ZFDebug
+nbproject/*
