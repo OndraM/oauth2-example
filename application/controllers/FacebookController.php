@@ -112,7 +112,12 @@ class FacebookController extends Zend_Controller_Action
         return;
     }
 
-
+    /**
+     * Fetch data from selected endpoint.
+     *
+     * @param string $endpoint Relative endpoint path
+     * @return mixed Returned data
+     */
     protected function _fetchData($endpoint) {
         $client = new Zend_Http_Client();
         $client->setUri('https://graph.facebook.com' . $endpoint);
