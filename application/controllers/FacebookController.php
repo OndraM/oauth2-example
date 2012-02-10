@@ -2,8 +2,8 @@
 
 class FacebookController extends Zend_Controller_Action
 {
-    const CLIENT_ID = '341769282522679';
-    const CLIENT_SECRET = '9c0d0f4de1fcacbfdff53489c58355a1';
+    const CLIENT_ID = '341769282522679'; // FIXME: replace with yours
+    const CLIENT_SECRET = '9c0d0f4de1fcacbfdff53489c58355a1'; // FIXME: replace with yours
 
     public function init()
     {
