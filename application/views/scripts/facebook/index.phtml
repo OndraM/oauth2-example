@@ -24,6 +24,9 @@ Zend_Debug::dump($urlData);
 } else { // user IS authorized
 ?>
 <p>I'm authorized, let's get some data: </p>
+<?php
+if (!empty($this->me)) {
+?>
 <h3>User info</h3>
 <ul>
     <li>Name: <?=$this->escape($this->me['name']);?>
@@ -31,7 +34,10 @@ Zend_Debug::dump($urlData);
     <li>Facebook profile: <a href="<?=$this->escape($this->me['link']);?>"><?=$this->escape($this->me['link']);?></a>
     <li>Bio: &bdquo;<?=$this->escape($this->me['bio']);?>&rdquo;
 </ul>
-
+<?php
+}
+if (!empty($this->photos['data'])) {
+?>
 <h3>Photos</h3>
 <?php
     foreach($this->photos['data'] as $photo) {
@@ -44,6 +50,7 @@ Zend_Debug::dump($urlData);
             . "</div>\n";
 
     }
+}
 ?>
 <div style="clear: both"></div>
 <?php
