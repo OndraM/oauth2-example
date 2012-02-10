@@ -23,3 +23,4 @@ References
 1. OAuth 2.0 draft v23 - http://tools.ietf.org/html/draft-ietf-oauth-v2-23
 2. Authentication on Facebook - https://developers.facebook.com/docs/authentication/
 3. Own bachelor thesis - http://o.vlastovka.eu/download/machuon1_2012bach.pdf
+4. Presentation (in Czech) - http://www.slideshare.net/ondram/oauth-20-a-zend-framework
